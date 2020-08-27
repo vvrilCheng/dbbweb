@@ -1,0 +1,224 @@
+<template>
+<div>
+    <div class="w-contaner addClass">
+        <Header></Header>
+    </div>
+    <div class="fgx"></div>
+    <div class="w-contaner">
+        <div class="pd30 pt20">
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item>打包办</el-breadcrumb-item>
+        <el-breadcrumb-item>{{packname}}</el-breadcrumb-item>
+        </el-breadcrumb>
+        </div>
+
+        <div class="cont-box">
+            <el-steps :active="1" align-center>
+            <el-step title="选择联办业务" description=""></el-step>
+            <el-step title="填写相关信息" description=""></el-step>
+            <el-step title="提交并进行评价" description=""></el-step>
+            </el-steps>
+            <div class="pd30">
+                <!-- 基础信息 -->
+                <h3><img src="../assets/images/info1.png">基础信息</h3>
+                <div class="info-cont">
+                    <div class="item-list">
+                        <div>
+                            <el-input placeholder="张**" v-model="input1" :disabled="edit">
+                                <template slot="prepend">姓名</template>
+                            </el-input>
+                        </div>
+                    </div>
+                    <div class="item-list">
+                        <div>
+                            <el-input placeholder="安徽省合肥市蜀山区黄山路***小区**栋" v-model="input2" :disabled="edit">
+                                <template slot="prepend">联系地址</template>
+                            </el-input>
+                        </div>
+                    </div>
+                    <div class="item-list">
+                        <div>
+                            <el-input placeholder="341076589432967953" v-model="input3" :disabled="edit">
+                                <template slot="prepend">身份证号</template>
+                            </el-input>
+                        </div>
+                    </div>
+                    <div class="item-list">
+                        <div>
+                            <el-input placeholder="张**" v-model="input4">
+                                <template slot="prepend">代理人姓名</template>
+                            </el-input>
+                        </div>
+                    </div>
+                    <div class="item-list">
+                        <div>
+                            <el-input placeholder="18335893892" v-model="input5">
+                                <template slot="prepend">联系电话</template>
+                            </el-input>
+                        </div>
+                    </div>
+                    <div class="item-list">
+                        <div>
+                            <el-input placeholder="341036793267842849" v-model="input6">
+                                <template slot="prepend">代理人身份证号</template>
+                            </el-input>
+                        </div>
+                    </div>
+                </div>
+                <!-- newList -->
+                <div v-for="(item,index) in newList" :key="index">
+                <h3><img src="../assets/images/info3.png">{{item.itemname}}</h3>
+                <div class="info-cont">
+                    <div class="item-list">
+                        <div>
+                            <el-input placeholder="8654290543" v-model="input7" :disabled="edit">
+                                <template slot="prepend">原单位编号</template>
+                            </el-input>
+                        </div>
+                    </div>
+                    <div class="item-list">
+                        <div>
+                            <el-input placeholder="2018-05-21" suffix-icon="el-icon-date" v-model="input8" :disabled="edit">
+                                <template slot="prepend">参加工作日期</template>
+                            </el-input>
+                        </div>
+                    </div>
+                    <div class="item-list">
+                        <div>
+                            <el-input placeholder="安徽易联众信息技术有限公司" v-model="input9" :disabled="edit">
+                                <template slot="prepend">原单位名称</template>
+                            </el-input>
+                        </div>
+                    </div>
+                    <div class="item-list">
+                        <div>
+                            <el-input placeholder="有" v-model="input10">
+                                <template slot="prepend">有无求职要求</template>
+                            </el-input>
+                        </div>
+                    </div>
+                    <div class="item-list">
+                        <div>
+                            <el-input placeholder="个人原因" v-model="input11">
+                                <template slot="prepend">失业原因</template>
+                            </el-input>
+                        </div>
+                    </div>
+                    <div class="item-list">
+                        <div>
+                            <el-input placeholder="6793267842849" v-model="input12" :disabled="edit">
+                                <template slot="prepend">失业证号</template>
+                            </el-input>
+                        </div>
+                    </div>
+                    <div class="item-list">
+                        <div>
+                            <el-input placeholder="身份证扫描件" v-model="input13">
+                                <template slot="prepend">失业登记电子材料</template>
+                                <el-select slot="append" v-model="select" placeholder="请选择">
+                                    <el-option label="身份证扫描件" value="1"></el-option>
+                                </el-select>
+                            </el-input>
+                        </div>
+                    </div>
+                    <div class="item-list">
+                        <div>
+                            <el-button type="primary">点击上传</el-button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="center pd30 pb80">
+                <router-link :to="{name: 'PackList', params: {listId:listId,packname:packname}}">
+                <el-button type="primary" class="mr30">返回</el-button>
+                </router-link>
+                <router-link :to="{name: 'PackFinish', params: {packname:packname}}">
+                <el-button type="primary">确定</el-button>
+                </router-link>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+    <Footer></Footer>
+</div>
+</template>
+
+<script>
+    import Header from "../components/Header";
+    import Footer from "../components/Footer";
+    export default {
+        name: "Package",
+        components: {Header,Footer},
+        data(){
+        return {
+            edit:true,
+            listId:'',
+            packname:'',
+            newList:'',
+            input1: '张**',
+            input2: '安徽省合肥市蜀山区黄山路***小区**栋',
+            input3: '341076589432967953',
+            input4: '张**',
+            input5: '18335893892',
+            input6: '341036793267842849',
+            input7: '8654290543',
+            input8: '2018-05-21',
+            input9: '安徽易联众信息技术有限公司',
+            input10: '有',
+            input11: '个人原因',
+            input12: '6793267842849',
+            input13: '身份证扫描件',
+            input14: '',
+            input15: '',
+            input16: '',
+            input17: '',
+            input18: ''
+
+        }
+        },
+        mounted() {
+            this.packname = this.$route.params.packname;
+            this.newList = this.$route.params.newList;
+            this.listId = this.$route.params.listId;
+            console.log(this.packname+"kkk")
+        },
+        methods:{
+        }
+    }
+</script>
+
+<style scoped>
+    .w-contaner {
+        max-width: 1110px;
+        margin: 0 auto;
+    }
+    h3{
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 24px;
+        padding: 30px 0 20px 0;
+    }
+    h3 img{
+        vertical-align: middle;
+        margin-right: 15px;
+    }
+    .info-cont{
+        padding: 30px 30px 15px 30px;
+        border: 1px solid #e8e8e8;
+    }
+    .item-list{
+        display: inline-block;
+        width: 49%;
+        margin-bottom: 15px;
+        margin-right:2%;
+    }
+    .item-list:nth-child(2n){
+        margin-right: 0;
+    }
+</style>
